@@ -9,8 +9,6 @@ import 'package:kebapp_flutter/orders/presentation/order_input/order_input.dart'
 
 part 'routes.g.dart';
 
-// generate with: `dart run build_runner build`
-
 @TypedGoRoute<GroupOverviewRoute>(
   path: '/',
   routes: [
