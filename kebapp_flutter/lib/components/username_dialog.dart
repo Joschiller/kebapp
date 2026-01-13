@@ -1,0 +1,71 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:kebapp_flutter/main.dart';
+import 'package:kebapp_flutter/users/state/session_info_cubit.dart';
+
+class UsernameDialog extends StatefulWidget {
+  const UsernameDialog({super.key});
+
+  @override
+  State<UsernameDialog> createState() => _UsernameDialogState();
+}
+
+class _UsernameDialogState extends State<UsernameDialog> {
+  final _textController = TextEditingController();
+  var _isValid = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _textController.text =
+        context.read<SessionInfoCubit>().state?.userName ?? '';
+    _validate();
+  }
+
+  void _validate() {
+    setState(() {
+      _isValid = _textController.text.isNotEmpty;
+    });
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => AlertDialog(
+        title: Text('Change Username'),
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Username:'),
+            TextField(
+              controller: _textController,
+              onChanged: (_) => _validate(),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => context.pop(false),
+            child: Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: _isValid
+                ? () async {
+                    final sessionCubit = context.read<SessionInfoCubit>();
+                    await client.username
+                        .updateUsername(_textController.text.trim())
+                        .then((_) => sessionCubit.doRefresh());
+                    if (context.mounted) context.pop(true);
+                  }
+                : null,
+            child: Text('Save'),
+          ),
+        ],
+      );
+}

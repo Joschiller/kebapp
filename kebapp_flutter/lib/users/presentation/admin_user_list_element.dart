@@ -1,0 +1,95 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kebapp_client/kebapp_client.dart';
+import 'package:kebapp_flutter/components/confirmation_dialog.dart';
+import 'package:kebapp_flutter/users/state/user_admin_cubit.dart';
+
+class AdminUserListElement extends StatelessWidget {
+  const AdminUserListElement({
+    super.key,
+    required this.user,
+    required this.isCurrentUser,
+  });
+
+  final CustomUserInfo user;
+  final bool isCurrentUser;
+
+  @override
+  Widget build(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (user.verificationCode != null)
+            Row(
+              children: [
+                Text(
+                  user.verificationCode ?? '',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Colors.grey.shade500,
+                      ),
+                ),
+              ],
+            ),
+          Row(
+            children: [
+              Checkbox(
+                value: user.scopes.contains('userRead'),
+                onChanged: isCurrentUser
+                    ? null
+                    : (value) =>
+                        context.read<UserAdminCubit>().updateReadScopeByUserId(
+                              value ?? false,
+                              user.userId,
+                            ),
+              ),
+              SizedBox(width: 8),
+              Text('Read Data'),
+            ],
+          ),
+          Row(
+            children: [
+              Checkbox(
+                value: user.scopes.contains('userWrite'),
+                onChanged: isCurrentUser
+                    ? null
+                    : (value) =>
+                        context.read<UserAdminCubit>().updateWriteScopeByUserId(
+                              value ?? false,
+                              user.userId,
+                            ),
+              ),
+              SizedBox(width: 8),
+              Text('Write Data'),
+            ],
+          ),
+          Row(
+            children: [
+              Checkbox(
+                value: user.scopes.contains('serverpod.admin'),
+                onChanged: isCurrentUser
+                    ? null
+                    : (value) async {
+                        final cubit = context.read<UserAdminCubit>();
+                        if (value ?? false) {
+                          final confirmed = await showDialog(
+                            context: context,
+                            builder: (context) => ConfirmationDialog(
+                              text:
+                                  'Do you really want to make "${user.userName}" an admin?',
+                              destructiveAction: true,
+                            ),
+                          );
+                          if (!confirmed) return;
+                        }
+                        await cubit.updateAdminScopeByUserId(
+                          value ?? false,
+                          user.userId,
+                        );
+                      },
+              ),
+              SizedBox(width: 8),
+              Text('Admin'),
+            ],
+          ),
+        ],
+      );
+}
