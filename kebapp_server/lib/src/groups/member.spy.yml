@@ -1,0 +1,11 @@
+class: Member
+table: member
+fields:
+  groupId: int, relation(name=group_member, parent=group, onDelete=Cascade)
+  userId: int
+  accepted: bool
+  order: Order?, relation(name=member_order)
+indexes:
+  groupId_userId_unique:
+    fields: groupId, userId
+    unique: true

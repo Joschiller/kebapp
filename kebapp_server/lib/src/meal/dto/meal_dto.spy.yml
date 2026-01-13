@@ -1,0 +1,6 @@
+class: MealDto
+fields:
+  id: int
+  title: String
+  basePrice: int
+  mealInputs: List<MealInputDto>

@@ -1,0 +1,6 @@
+class: CustomUserInfo
+fields:
+  userId: int
+  userName: String
+  verificationCode: String?
+  scopes: List<String>

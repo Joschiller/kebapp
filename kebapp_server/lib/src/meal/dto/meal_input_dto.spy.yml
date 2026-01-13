@@ -1,0 +1,7 @@
+class: MealInputDto
+fields:
+  id: int
+  description: String
+  multipleChoice: bool
+  isExclusion: bool
+  mealInputOptions: List<MealInputOptionDto>

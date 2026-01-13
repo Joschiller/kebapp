@@ -1,0 +1,10 @@
+class: Meal
+table: meal
+fields:
+  title: String
+  basePrice: int
+  mealInputs: List<MealInput>?, relation(name=meal_meal_input)
+indexes:
+  meal_title_unique:
+    fields: title
+    unique: true

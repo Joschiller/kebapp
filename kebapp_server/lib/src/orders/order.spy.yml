@@ -1,0 +1,12 @@
+class: Order
+table: order
+fields:
+  memberId: int
+  member: Member?, relation(name=member_order, field=memberId, onDelete=Cascade)
+  mealId: int, relation(parent=meal, onDelete=Cascade)
+  remarks: String
+  options: List<OrderOption>?, relation(name=order_order_option)
+indexes:
+  member_order_unique:
+    fields: memberId
+    unique: true

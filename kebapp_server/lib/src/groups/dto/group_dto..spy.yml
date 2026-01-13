@@ -1,0 +1,7 @@
+class: GroupDto
+fields:
+  id: int
+  title: String
+  timeOfDay: int
+  location: String
+  members: List<MemberDto>

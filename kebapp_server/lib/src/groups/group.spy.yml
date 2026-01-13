@@ -1,0 +1,11 @@
+class: Group
+table: group
+fields:
+  title: String
+  timeOfDay: int
+  location: String
+  members: List<Member>?, relation(name=group_member)
+indexes:
+  group_title_unique:
+    fields: title
+    unique: true

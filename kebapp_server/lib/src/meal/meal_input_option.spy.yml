@@ -1,0 +1,10 @@
+class: MealInputOption
+table: meal_input_option
+fields:
+  mealInputId: int, relation(name=meal_input_meal_input_option, parent=meal_input, onDelete=Cascade)
+  description: String
+  additionalPrice: int
+indexes:
+  mealInputId_description_unique:
+    fields: mealInputId, description
+    unique: true

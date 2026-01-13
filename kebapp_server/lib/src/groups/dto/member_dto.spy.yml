@@ -1,0 +1,6 @@
+class: MemberDto
+fields:
+  userId: int
+  userName: String
+  accepted: bool
+  order: OrderDto?

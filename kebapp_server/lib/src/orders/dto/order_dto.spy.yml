@@ -1,0 +1,5 @@
+class: OrderDto
+fields:
+  mealId: int
+  remarks: String
+  mealInputOptionIds: List<int>

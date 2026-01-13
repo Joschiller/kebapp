@@ -1,0 +1,9 @@
+class: OrderOption
+table: order_option
+fields:
+  orderId: int, relation(name=order_order_option, parent=order, onDelete=Cascade)
+  mealInputOptionId: int, relation(parent=meal_input_option, onDelete=Cascade)
+indexes:
+  orderId_mealInputOptionId_unique:
+    fields: orderId, mealInputOptionId
+    unique: true

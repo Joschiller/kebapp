@@ -1,0 +1,4 @@
+class: GroupUserInfoDto
+fields:
+  userId: int
+  userName: String

@@ -1,0 +1,5 @@
+class: MealInputOptionDto
+fields:
+  id: int
+  description: String
+  additionalPrice: int
