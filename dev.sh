@@ -37,13 +37,13 @@ fi
 
 if [ "$action" == "up" ]; then
   cd kebapp_server
-  docker compose up -d
+  docker compose --env-file dev.env up -d
   dart run bin/main.dart --apply-migrations
   cd ..
 fi
 
 if [ "$action" == "down" ]; then
   cd kebapp_server
-  docker compose down
+  docker compose --env-file dev.env down
   cd ..
 fi

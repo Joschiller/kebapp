@@ -42,6 +42,7 @@ To setup `serverpod` and install needed dependencies run `./dev.sh init`.
 ### Env
 
 - generate a `passwords.yaml` at `./kebapp_server/config/passwords.yaml` based on the [example file](./kebapp_server/config/passwords.yaml.example)
+- generate [kebapp_server/dev.env](./kebapp_server/dev.env) based on the [example file](./kebapp_server/dev.env.example)
 
 ### Useful Commands
 
