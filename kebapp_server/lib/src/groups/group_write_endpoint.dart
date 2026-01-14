@@ -2,6 +2,7 @@ import 'package:kebapp_server/src/generated/protocol.dart';
 import 'package:kebapp_server/src/groups/group_endpoint.dart';
 import 'package:kebapp_server/src/user/custom_scope.dart';
 import 'package:serverpod/serverpod.dart' hide Order;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as auth;
 
 class GroupWriteEndpoint extends GroupEndpoint {
   @override
@@ -56,6 +57,20 @@ class GroupWriteEndpoint extends GroupEndpoint {
     if ((group.members ?? []).any((m) => m.userId == userId)) {
       // is already a member
       return;
+    }
+
+    final userToInvite = (await auth.UserInfo.db.find(
+      session,
+      where: (p0) => p0.id.equals(userId),
+    ))
+        .firstOrNull;
+    if (userToInvite == null) {
+      throw ForbiddenException();
+    }
+    if (!userToInvite.scopes.contains(CustomScope.userRead) ||
+        !userToInvite.scopes.contains(CustomScope.userWrite)) {
+      // the user is not unlocked yet and would not be able to accept the invite
+      throw ForbiddenException();
     }
 
     await Member.db.insertRow(

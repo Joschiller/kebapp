@@ -156,6 +156,10 @@ class GroupReadEndpoint extends GroupEndpoint {
     final users = await auth.UserInfo.db.find(session);
     return users
         .where((user) => !memberUserIds.contains(user.id))
+        .where((user) =>
+            // only include users that are able to view and accept invites
+            user.scopes.contains(CustomScope.userRead) &&
+            user.scopes.contains(CustomScope.userWrite))
         .map(
           (user) => GroupUserInfoDto(
             userId: user.id!,
