@@ -26,21 +26,37 @@ class _GroupListState extends State<GroupList> {
               child: CircularProgressIndicator(),
             ),
           GroupCubitStateNoPermission() => SizedBox.shrink(),
-          GroupCubitStateLoaded(groups: final groups) => ListView.separated(
-              itemBuilder: (context, index) => GestureDetector(
-                onTap: () => GroupDetailsRoute(groupId: groups[index].id)
-                    .push(context)
-                    .then((value) {
-                  if (!context.mounted) return;
-                  context.read<GroupCubit>().reload();
-                }),
-                child: GroupListElement(
-                  group: groups[index],
+          GroupCubitStateLoaded(groups: final groups) => groups.isEmpty
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                          child: Text(
+                            'You have not been invited to any group yet.',
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              : ListView.separated(
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () => GroupDetailsRoute(groupId: groups[index].id)
+                        .push(context)
+                        .then((value) {
+                      if (!context.mounted) return;
+                      context.read<GroupCubit>().reload();
+                    }),
+                    child: GroupListElement(
+                      group: groups[index],
+                    ),
+                  ),
+                  separatorBuilder: (context, index) => SizedBox(height: 8),
+                  itemCount: groups.length,
                 ),
-              ),
-              separatorBuilder: (context, index) => SizedBox(height: 8),
-              itemCount: groups.length,
-            ),
         },
       );
 }
