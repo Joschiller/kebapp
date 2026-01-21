@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kebapp_client/kebapp_client.dart';
 import 'package:kebapp_flutter/components/confirmation_dialog.dart';
 import 'package:kebapp_flutter/users/state/user_admin_cubit.dart';
@@ -21,11 +22,14 @@ class AdminUserListElement extends StatelessWidget {
           if (user.verificationCode != null)
             Row(
               children: [
+                SizedBox(width: 8),
                 Text(
                   user.verificationCode ?? '',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Colors.grey.shade500,
-                      ),
+                  style: GoogleFonts.inconsolata(
+                    color: Colors.grey.shade500,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
