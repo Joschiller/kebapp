@@ -1,4 +1,5 @@
 import 'package:kebapp_server/src/initial_user_setup.dart';
+import 'package:kebapp_server/src/user/custom_scope.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/serverpod_auth_server.dart' as auth;
 
@@ -37,6 +38,22 @@ void run(List<String> args) async {
     sendPasswordResetEmail: (session, userInfo, validationCode) async {
       // TODO: integrate with mail server
       return true;
+    },
+    onUserCreated: (session, userInfo) async {
+      // Assign default roles to new users.
+      // NOTE: This is only viable as long as users do not receive email codes. Currently users must receive a code from an admin - that way, the admin still has full control over the users that receive acccess to the application.
+      // TODO: integrate with mail server - Once the email integration is done, this callback should be removed!
+
+      try {
+        await auth.Users.updateUserScopes(
+          session,
+          userInfo.id!,
+          {CustomScope.userRead, CustomScope.userWrite},
+        );
+        print('User ${userInfo.userName} received default roles.');
+      } catch (e) {
+        print('User ${userInfo.userName} did not receive default roles.');
+      }
     },
   ));
 
