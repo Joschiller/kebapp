@@ -91,6 +91,8 @@ flutter:
 flutter_launcher_icons:
   android: 'launcher_icon'
   ios: true
+  remove_alpha_ios: true
+  background_color_ios: '#ffffff'
   image_path: 'assets/icon/icon.png'
   web:
     generate: true
