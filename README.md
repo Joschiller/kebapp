@@ -2,11 +2,9 @@
 
 An application to create lunch groups and collect orders.
 
-Users can sign up at any time but have to be unlocked by an administrator.
+Users can create groups to collect orders for lunch breaks and view summaries of such orders.
 
-Once unlocked, users can create groups to collect orders for lunch breaks and view summaries of such orders.
-
-Administrators can configure the available meals and their options.
+Administrators can configure the available meals and their options as well as the permissions of users.
 
 ## Deployment
 
