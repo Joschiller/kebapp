@@ -3,6 +3,7 @@ class SessionInfo {
   final String? userName;
   final bool canRead;
   final bool canWrite;
+  final bool canWriteUserName;
   final bool isAdmin;
 
   SessionInfo({
@@ -10,8 +11,9 @@ class SessionInfo {
     required this.userName,
     required this.canRead,
     required this.canWrite,
+    required this.canWriteUserName,
     required this.isAdmin,
   });
 
-  bool get isUnlocked => canRead || canWrite || isAdmin;
+  bool get isUnlocked => canRead || canWrite || canWriteUserName || isAdmin;
 }

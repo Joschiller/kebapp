@@ -35,7 +35,7 @@ class PageWrapper extends StatelessWidget {
                 ].nonNulls.join(' - '),
               ),
               actions: [
-                if (sessionInfo != null)
+                if (sessionInfo?.canWriteUserName ?? false)
                   IconButton(
                     onPressed: () => showDialog<bool>(
                       context: context,

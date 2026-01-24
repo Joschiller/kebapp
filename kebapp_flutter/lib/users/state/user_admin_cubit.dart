@@ -52,6 +52,17 @@ class UserAdminCubit extends Cubit<UserAdminCubitState> {
     }
   }
 
+  Future<void> updateWriteUserNameScopeByUserId(
+      bool newValue, int userId) async {
+    try {
+      await client.user
+          .updateWriteUserNameScopeByUserId(newValue, userId)
+          .then((_) => reload());
+    } catch (e) {
+      // ignore
+    }
+  }
+
   Future<void> updateAdminScopeByUserId(bool newValue, int userId) async {
     try {
       await client.user

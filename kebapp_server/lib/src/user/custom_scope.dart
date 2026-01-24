@@ -5,4 +5,5 @@ class CustomScope extends Scope {
 
   static const userRead = CustomScope('userRead');
   static const userWrite = CustomScope('userWrite');
+  static const userWriteUserName = CustomScope('userWrite.userName');
 }

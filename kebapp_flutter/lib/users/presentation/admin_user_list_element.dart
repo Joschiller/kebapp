@@ -68,6 +68,23 @@ class AdminUserListElement extends StatelessWidget {
           Row(
             children: [
               Checkbox(
+                value: user.scopes.contains('userWrite.userName'),
+                onChanged: isCurrentUser
+                    ? null
+                    : (value) => context
+                        .read<UserAdminCubit>()
+                        .updateWriteUserNameScopeByUserId(
+                          value ?? false,
+                          user.userId,
+                        ),
+              ),
+              SizedBox(width: 8),
+              Text('Change Username'),
+            ],
+          ),
+          Row(
+            children: [
+              Checkbox(
                 value: user.scopes.contains('serverpod.admin'),
                 onChanged: isCurrentUser
                     ? null
