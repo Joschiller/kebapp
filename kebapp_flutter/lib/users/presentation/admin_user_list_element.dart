@@ -35,6 +35,12 @@ class AdminUserListElement extends StatelessWidget {
             ),
           Row(
             children: [
+              SizedBox(width: 8),
+              Text(user.email),
+            ],
+          ),
+          Row(
+            children: [
               Checkbox(
                 value: user.scopes.contains('userRead'),
                 onChanged: isCurrentUser

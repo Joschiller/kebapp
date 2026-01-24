@@ -21,6 +21,7 @@ class UserEndpoint extends UserInfoEndpoint {
         (user) => CustomUserInfo(
           userId: user.id!,
           userName: user.userName!,
+          email: user.email!,
           verificationCode: resets
               .where((r) => r.userId == user.id)
               .firstOrNull
@@ -33,6 +34,7 @@ class UserEndpoint extends UserInfoEndpoint {
         (verification) => CustomUserInfo(
           userId: -verification.id!,
           userName: verification.userName,
+          email: verification.email,
           verificationCode: verification.verificationCode,
           scopes: [],
         ),
