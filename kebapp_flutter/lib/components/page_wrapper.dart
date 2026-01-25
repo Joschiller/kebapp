@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kebapp_flutter/auth/sign_in_page.dart';
 import 'package:kebapp_flutter/components/username_dialog.dart';
-import 'package:kebapp_flutter/main.dart';
 import 'package:kebapp_flutter/models/session_info.dart';
 import 'package:kebapp_flutter/routes.dart';
 import 'package:kebapp_flutter/users/state/session_info_cubit.dart';
@@ -45,10 +44,9 @@ class PageWrapper extends StatelessWidget {
                             context.read<SessionInfoCubit>().state?.userName ??
                                 '',
                         onSubmit: (newUserName) async {
-                          final sessionCubit = context.read<SessionInfoCubit>();
-                          await client.username
-                              .updateUsername(newUserName)
-                              .then((_) => sessionCubit.doRefresh());
+                          context
+                              .read<SessionInfoCubit>()
+                              .updateUsername(newUserName);
                         },
                       ),
                     ).then((value) {
