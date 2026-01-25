@@ -43,16 +43,18 @@ class AdminUserListElement extends StatelessWidget {
                 final onSubmit =
                     context.read<UserAdminCubit>().updateUsernamebyUserId;
                 return IconButton(
-                  onPressed: () => showDialog<bool>(
-                    context: context,
-                    builder: (context) => UsernameDialog(
-                      initialValue: user.userName,
-                      onSubmit: (newUserName) => onSubmit(
-                        newUserName,
-                        user.userId,
-                      ),
-                    ),
-                  ),
+                  onPressed: isCurrentUser
+                      ? null
+                      : () => showDialog<bool>(
+                            context: context,
+                            builder: (context) => UsernameDialog(
+                              initialValue: user.userName,
+                              onSubmit: (newUserName) => onSubmit(
+                                newUserName,
+                                user.userId,
+                              ),
+                            ),
+                          ),
                   icon: Icon(Icons.badge_outlined),
                 );
               })
