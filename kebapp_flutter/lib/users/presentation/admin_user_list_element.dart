@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kebapp_client/kebapp_client.dart';
 import 'package:kebapp_flutter/components/confirmation_dialog.dart';
+import 'package:kebapp_flutter/components/username_dialog.dart';
 import 'package:kebapp_flutter/users/state/user_admin_cubit.dart';
 
 class AdminUserListElement extends StatelessWidget {
@@ -37,6 +38,24 @@ class AdminUserListElement extends StatelessWidget {
             children: [
               SizedBox(width: 8),
               Text(user.email),
+              Spacer(),
+              Builder(builder: (context) {
+                final onSubmit =
+                    context.read<UserAdminCubit>().updateUsernamebyUserId;
+                return IconButton(
+                  onPressed: () => showDialog<bool>(
+                    context: context,
+                    builder: (context) => UsernameDialog(
+                      initialValue: user.userName,
+                      onSubmit: (newUserName) => onSubmit(
+                        newUserName,
+                        user.userId,
+                      ),
+                    ),
+                  ),
+                  icon: Icon(Icons.badge_outlined),
+                );
+              })
             ],
           ),
           Row(

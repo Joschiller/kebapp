@@ -72,4 +72,14 @@ class UserAdminCubit extends Cubit<UserAdminCubitState> {
       // ignore
     }
   }
+
+  Future<void> updateUsernamebyUserId(String newValue, int userId) async {
+    try {
+      await client.user
+          .updateUsernamebyUserId(newValue, userId)
+          .then((_) => reload());
+    } catch (e) {
+      // ignore
+    }
+  }
 }

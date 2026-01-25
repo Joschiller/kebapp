@@ -116,4 +116,27 @@ class UserEndpoint extends UserInfoEndpoint {
       if (setScope) scope,
     });
   }
+
+  Future<void> updateUsernamebyUserId(
+    Session session,
+    String newUserName,
+    int userId,
+  ) async {
+    final currentUser = await getUserInfo(session);
+    if (currentUser.id == userId) {
+      // Changing the username of the same user is only allowed via the [UsernameEndpoint].
+      throw ForbiddenException();
+    }
+
+    final userToEdit = (await auth.UserInfo.db.find(
+      session,
+      where: (p0) => p0.id.equals(userId),
+    ))
+        .firstOrNull;
+    if (userToEdit == null) {
+      throw ForbiddenException();
+    }
+
+    await auth.Users.changeUserName(session, userId, newUserName);
+  }
 }

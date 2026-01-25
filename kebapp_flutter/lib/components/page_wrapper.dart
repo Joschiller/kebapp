@@ -41,6 +41,9 @@ class PageWrapper extends StatelessWidget {
                     onPressed: () => showDialog<bool>(
                       context: context,
                       builder: (context) => UsernameDialog(
+                        initialValue:
+                            context.read<SessionInfoCubit>().state?.userName ??
+                                '',
                         onSubmit: (newUserName) async {
                           final sessionCubit = context.read<SessionInfoCubit>();
                           await client.username

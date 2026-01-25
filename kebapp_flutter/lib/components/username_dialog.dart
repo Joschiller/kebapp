@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kebapp_flutter/users/state/session_info_cubit.dart';
 
 class UsernameDialog extends StatefulWidget {
-  const UsernameDialog({super.key, required this.onSubmit});
+  const UsernameDialog({
+    super.key,
+    required this.initialValue,
+    required this.onSubmit,
+  });
 
+  final String initialValue;
   final Future<void> Function(String newUserName) onSubmit;
 
   @override
@@ -19,8 +22,7 @@ class _UsernameDialogState extends State<UsernameDialog> {
   @override
   void initState() {
     super.initState();
-    _textController.text =
-        context.read<SessionInfoCubit>().state?.userName ?? '';
+    _textController.text = widget.initialValue;
     _validate();
   }
 
