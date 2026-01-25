@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kebapp_flutter/main.dart';
 import 'package:kebapp_flutter/users/state/session_info_cubit.dart';
 
 class UsernameDialog extends StatefulWidget {
-  const UsernameDialog({super.key});
+  const UsernameDialog({super.key, required this.onSubmit});
+
+  final Future<void> Function(String newUserName) onSubmit;
 
   @override
   State<UsernameDialog> createState() => _UsernameDialogState();
@@ -56,13 +57,9 @@ class _UsernameDialogState extends State<UsernameDialog> {
           ),
           TextButton(
             onPressed: _isValid
-                ? () async {
-                    final sessionCubit = context.read<SessionInfoCubit>();
-                    await client.username
-                        .updateUsername(_textController.text.trim())
-                        .then((_) => sessionCubit.doRefresh());
-                    if (context.mounted) context.pop(true);
-                  }
+                ? () => widget.onSubmit(_textController.text.trim()).then((_) {
+                      if (context.mounted) context.pop(true);
+                    })
                 : null,
             child: Text('Save'),
           ),
