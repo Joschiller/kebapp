@@ -89,6 +89,8 @@ class __SessionWrapperState extends State<_SessionWrapper> {
                   isAdmin: user.scopeNames.contains('serverpod.admin'),
                   canConfigureMeals: user.scopeNames.contains('admin.meals'),
                   canConfigureRights: user.scopeNames.contains('admin.rights'),
+                  canViewPendingVerifications:
+                      user.scopeNames.contains('admin.verificationCodes'),
                 )
               : null,
         );

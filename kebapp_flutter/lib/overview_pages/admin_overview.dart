@@ -6,8 +6,10 @@ import 'package:kebapp_flutter/models/session_info.dart';
 import 'package:kebapp_flutter/users/presentation/admin_user_list.dart';
 import 'package:kebapp_flutter/components/page_wrapper.dart';
 import 'package:kebapp_flutter/components/single_expansion_tile_list.dart';
+import 'package:kebapp_flutter/users/presentation/admin_verification_code_list.dart';
 import 'package:kebapp_flutter/users/state/session_info_cubit.dart';
 import 'package:kebapp_flutter/users/state/user_admin_cubit.dart';
+import 'package:kebapp_flutter/users/state/verification_code_admin_cubit.dart';
 
 class AdminOverview extends StatelessWidget {
   AdminOverview({super.key});
@@ -17,6 +19,10 @@ class AdminOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
+          BlocProvider(
+            create: (context) => VerificationCodeAdminCubit(),
+            lazy: false,
+          ),
           BlocProvider(
             create: (context) => UserAdminCubit(),
             lazy: false,
@@ -37,6 +43,9 @@ class AdminOverview extends StatelessWidget {
             child: BlocBuilder<SessionInfoCubit, SessionInfo?>(
                 builder: (context, sessionInfo) =>
                     SingleExpansionTileList(children: {
+                      if (sessionInfo?.canViewPendingVerifications ?? false)
+                        'Pending Verification Codes':
+                            AdminVerificationCodeList(),
                       if (sessionInfo?.canConfigureRights ?? false)
                         'Users': AdminUserList(
                           key: _userListyKey,

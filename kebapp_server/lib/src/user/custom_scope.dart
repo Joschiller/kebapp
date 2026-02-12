@@ -8,4 +8,5 @@ class CustomScope extends Scope {
   static const userWriteUserName = CustomScope('userWrite.userName');
   static const adminMeals = CustomScope('admin.meals');
   static const adminRights = CustomScope('admin.rights');
+  static const adminVerificationCodes = CustomScope('admin.verificationCodes');
 }

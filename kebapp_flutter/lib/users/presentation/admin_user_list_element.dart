@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:kebapp_client/kebapp_client.dart';
 import 'package:kebapp_flutter/components/confirmation_dialog.dart';
 import 'package:kebapp_flutter/components/username_dialog.dart';
+import 'package:kebapp_flutter/users/presentation/verification_code_display.dart';
 import 'package:kebapp_flutter/users/state/user_admin_cubit.dart';
 
 class AdminUserListElement extends StatelessWidget {
@@ -24,13 +24,8 @@ class AdminUserListElement extends StatelessWidget {
             Row(
               children: [
                 SizedBox(width: 8),
-                Text(
-                  user.verificationCode ?? '',
-                  style: GoogleFonts.inconsolata(
-                    color: Colors.grey.shade500,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                VerificationCodeDisplay(
+                  verificationCode: user.verificationCode ?? '',
                 ),
               ],
             ),
@@ -172,6 +167,24 @@ class AdminUserListElement extends StatelessWidget {
                 ),
                 SizedBox(width: 8),
                 Text('Edit User Rights'),
+              ],
+            ),
+          if (user.scopes.contains('serverpod.admin'))
+            Row(
+              children: [
+                Checkbox(
+                  value: user.scopes.contains('admin.verificationCodes'),
+                  onChanged: isCurrentUser
+                      ? null
+                      : (value) => context
+                          .read<UserAdminCubit>()
+                          .updateAdminVerificationCodesScopeByUserId(
+                            value ?? false,
+                            user.userId,
+                          ),
+                ),
+                SizedBox(width: 8),
+                Text('View Pending Verification Codes'),
               ],
             ),
         ],

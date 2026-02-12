@@ -1,0 +1,5 @@
+class: PendingVerification
+fields:
+  userId: int
+  userName: String
+  verificationCode: String

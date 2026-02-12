@@ -115,6 +115,19 @@ class UserEndpoint extends UserInfoEndpoint {
     );
   }
 
+  Future<void> updateAdminVerificationCodesScopeByUserId(
+    Session session,
+    bool setScope,
+    int userId,
+  ) async {
+    await _updateScopeByUserId(
+      session,
+      setScope,
+      CustomScope.adminVerificationCodes,
+      userId,
+    );
+  }
+
   Future<void> _updateScopeByUserId(
     Session session,
     bool setScope,
