@@ -138,6 +138,42 @@ class AdminUserListElement extends StatelessWidget {
               Text('Admin'),
             ],
           ),
+          if (user.scopes.contains('serverpod.admin'))
+            Row(
+              children: [
+                Checkbox(
+                  value: user.scopes.contains('admin.meals'),
+                  onChanged: isCurrentUser
+                      ? null
+                      : (value) => context
+                          .read<UserAdminCubit>()
+                          .updateAdminMealsScopeByUserId(
+                            value ?? false,
+                            user.userId,
+                          ),
+                ),
+                SizedBox(width: 8),
+                Text('Edit Meals'),
+              ],
+            ),
+          if (user.scopes.contains('serverpod.admin'))
+            Row(
+              children: [
+                Checkbox(
+                  value: user.scopes.contains('admin.rights'),
+                  onChanged: isCurrentUser
+                      ? null
+                      : (value) => context
+                          .read<UserAdminCubit>()
+                          .updateAdminRightsScopeByUserId(
+                            value ?? false,
+                            user.userId,
+                          ),
+                ),
+                SizedBox(width: 8),
+                Text('Edit User Rights'),
+              ],
+            ),
         ],
       );
 }

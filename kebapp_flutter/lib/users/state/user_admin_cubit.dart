@@ -73,6 +73,26 @@ class UserAdminCubit extends Cubit<UserAdminCubitState> {
     }
   }
 
+  Future<void> updateAdminMealsScopeByUserId(bool newValue, int userId) async {
+    try {
+      await client.user
+          .updateAdminMealsScopeByUserId(newValue, userId)
+          .then((_) => reload());
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  Future<void> updateAdminRightsScopeByUserId(bool newValue, int userId) async {
+    try {
+      await client.user
+          .updateAdminRightsScopeByUserId(newValue, userId)
+          .then((_) => reload());
+    } catch (e) {
+      // ignore
+    }
+  }
+
   Future<void> updateUsernamebyUserId(String newValue, int userId) async {
     try {
       await client.user

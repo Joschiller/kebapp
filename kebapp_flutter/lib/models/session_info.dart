@@ -5,6 +5,8 @@ class SessionInfo {
   final bool canWrite;
   final bool canWriteUserName;
   final bool isAdmin;
+  final bool canConfigureMeals;
+  final bool canConfigureRights;
 
   SessionInfo({
     required this.userId,
@@ -13,6 +15,8 @@ class SessionInfo {
     required this.canWrite,
     required this.canWriteUserName,
     required this.isAdmin,
+    required this.canConfigureMeals,
+    required this.canConfigureRights,
   });
 
   bool get isUnlocked => canRead || canWrite || canWriteUserName || isAdmin;

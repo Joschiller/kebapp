@@ -87,6 +87,8 @@ class __SessionWrapperState extends State<_SessionWrapper> {
                   canWriteUserName:
                       user.scopeNames.contains('userWrite.userName'),
                   isAdmin: user.scopeNames.contains('serverpod.admin'),
+                  canConfigureMeals: user.scopeNames.contains('admin.meals'),
+                  canConfigureRights: user.scopeNames.contains('admin.rights'),
                 )
               : null,
         );
