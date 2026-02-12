@@ -9,7 +9,7 @@ class UserEndpoint extends UserInfoEndpoint {
   bool get requireLogin => true;
 
   @override
-  Set<Scope> get requiredScopes => {Scope.admin};
+  Set<Scope> get requiredScopes => {Scope.admin, CustomScope.adminRights};
 
   Future<List<CustomUserInfo>> getAllUsers(Session session) async {
     final users = await auth.UserInfo.db.find(session);

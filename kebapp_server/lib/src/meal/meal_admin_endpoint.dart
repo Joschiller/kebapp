@@ -1,4 +1,5 @@
 import 'package:kebapp_server/src/generated/protocol.dart';
+import 'package:kebapp_server/src/user/custom_scope.dart';
 import 'package:serverpod/serverpod.dart';
 
 class MealAdminEndpoint extends Endpoint {
@@ -6,7 +7,7 @@ class MealAdminEndpoint extends Endpoint {
   bool get requireLogin => true;
 
   @override
-  Set<Scope> get requiredScopes => {Scope.admin};
+  Set<Scope> get requiredScopes => {Scope.admin, CustomScope.adminMeals};
 
   Future<List<MealDto>> getAll(Session session) async {
     return (await Meal.db.find(
