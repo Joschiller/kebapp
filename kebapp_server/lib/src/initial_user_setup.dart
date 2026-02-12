@@ -1,3 +1,4 @@
+import 'package:kebapp_server/src/user/custom_scope.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/serverpod_auth_server.dart' as auth;
 
@@ -22,7 +23,14 @@ class InitialUserSetup extends FutureCall {
       );
 
       if (user != null) {
-        await auth.Users.updateUserScopes(session, user.id!, {Scope.admin});
+        await auth.Users.updateUserScopes(
+          session,
+          user.id!,
+          {
+            Scope.admin,
+            CustomScope.adminRights,
+          },
+        );
       }
     } else {
       session.log('Initial user already exists.');

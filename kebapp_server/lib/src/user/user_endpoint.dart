@@ -89,6 +89,32 @@ class UserEndpoint extends UserInfoEndpoint {
     await _updateScopeByUserId(session, setScope, Scope.admin, userId);
   }
 
+  Future<void> updateAdminMealsScopeByUserId(
+    Session session,
+    bool setScope,
+    int userId,
+  ) async {
+    await _updateScopeByUserId(
+      session,
+      setScope,
+      CustomScope.adminMeals,
+      userId,
+    );
+  }
+
+  Future<void> updateAdminRightsScopeByUserId(
+    Session session,
+    bool setScope,
+    int userId,
+  ) async {
+    await _updateScopeByUserId(
+      session,
+      setScope,
+      CustomScope.adminRights,
+      userId,
+    );
+  }
+
   Future<void> _updateScopeByUserId(
     Session session,
     bool setScope,
