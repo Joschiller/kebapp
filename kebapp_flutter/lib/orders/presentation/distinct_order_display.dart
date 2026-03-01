@@ -107,6 +107,9 @@ class DistinctOrderDisplayState extends State<DistinctOrderDisplay> {
                                         ),
                                       )
                                       .toList(),
+                                  dropdownDecoration: DropdownDecoration(
+                                    maxHeight: 200,
+                                  ),
                                   onSelectionChange: (selectedItems) {
                                     setState(() {
                                       _includeUsers.clear();
